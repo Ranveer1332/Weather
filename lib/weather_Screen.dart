@@ -1,6 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+
+import 'Additional_Information.dart';
+import 'Hourly_Forecast_Section.dart';
 
 class WeatherScreen extends StatelessWidget {
   const WeatherScreen({super.key});
@@ -68,158 +70,38 @@ class WeatherScreen extends StatelessWidget {
                     ),
                 ),
               ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                      child: Card(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Text('09:00',style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              ),
-                              const SizedBox(height: 8,),
-                              Icon(Icons.cloud,size: 32,),
-                              const SizedBox(height: 8,),
-                              Text('301.17',),
-                            ],
-                          ),
-                        )
-                      ),
-                  ),
-                  Card(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text('09:00',style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            ),
-                            const SizedBox(height: 8,),
-                            Icon(Icons.cloud,size: 32,),
-                            const SizedBox(height: 8,),
-                            Text('301.17',),
-                          ],
-                        ),
-                      )
-                  ),
-                  Card(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text('09:00',style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            ),
-                            const SizedBox(height: 8,),
-                            Icon(Icons.cloud,size: 32,),
-                            const SizedBox(height: 8,),
-                            Text('301.17',),
-                          ],
-                        ),
-                      )
-                  ),
-                  Card(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text('09:00',style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            ),
-                            const SizedBox(height: 8,),
-                            Icon(Icons.cloud,size: 32,),
-                            const SizedBox(height: 8,),
-                            Text('301.17',),
-                          ],
-                        ),
-                      )
-                  ),
-                  // Card(
-                  //     elevation: 10,
-                  //     shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       child: Column(
-                  //         children: [
-                  //           Text('09:00',style: TextStyle(
-                  //             fontSize: 16,
-                  //             fontWeight: FontWeight.bold,
-                  //           ),
-                  //           ),
-                  //           const SizedBox(height: 8,),
-                  //           Icon(Icons.cloud,size: 32,),
-                  //           const SizedBox(height: 8,),
-                  //           Text('301.17',),
-                  //         ],
-                  //       ),
-                  //     )
-                  // ),
-                  // Card(
-                  //     elevation: 10,
-                  //     shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       child: Column(
-                  //         children: [
-                  //           Text('09:00',style: TextStyle(
-                  //             fontSize: 16,
-                  //             fontWeight: FontWeight.bold,
-                  //           ),
-                  //           ),
-                  //           const SizedBox(height: 8,),
-                  //           Icon(Icons.cloud,size: 32,),
-                  //           const SizedBox(height: 8,),
-                  //           Text('301.17',),
-                  //         ],
-                  //       ),
-                  //     )
-                  // ),
-                  // Card(
-                  //     elevation: 10,
-                  //     shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       child: Column(
-                  //         children: [
-                  //           Text('09:00',style: TextStyle(
-                  //             fontSize: 16,
-                  //             fontWeight: FontWeight.bold,
-                  //           ),
-                  //           ),
-                  //           const SizedBox(height: 8,),
-                  //           Icon(Icons.cloud,size: 32,),
-                  //           const SizedBox(height: 8,),
-                  //           Text('301.17',),
-                  //         ],
-                  //       ),
-                  //     )
-                  // ),
-                ],
+              const SizedBox(height: 15,),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    HourlyForecastSection(),
+                    HourlyForecastSection(),
+                    HourlyForecastSection(),
+                    HourlyForecastSection(),
+                  ],
+                ),
               ),
 
               //Additional Information
               const SizedBox(height: 20),
-              const Placeholder(
-                fallbackHeight: 150,
+              Align(
+                alignment: AlignmentGeometry.centerLeft,
+                child: Text('Additional Information',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  AdditionalInformation(),
+                  AdditionalInformation(),
+                  AdditionalInformation(),
+                ],
               )
                 ],
           ),
@@ -227,3 +109,8 @@ class WeatherScreen extends StatelessWidget {
       );
   }
 }
+
+
+
+
+
