@@ -75,10 +75,26 @@ class WeatherScreen extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    HourlyForecastSection(),
-                    HourlyForecastSection(),
-                    HourlyForecastSection(),
-                    HourlyForecastSection(),
+                    HourlyForecastSection(
+                      value: '09:00',
+                      icon: Icons.cloud,
+                      label: '301.17',
+                    ),
+                    HourlyForecastSection(
+                      value: '12:00',
+                      icon: Icons.sunny,
+                      label :'310.54'
+                    ),
+                    HourlyForecastSection(
+                      value: '15:00',
+                      icon: Icons.sunny,
+                      label: '301.11',
+                    ),
+                    HourlyForecastSection(
+                      value: '18:00',
+                      icon:Icons.cloud,
+                      label: '300.75',
+                    ),
                   ],
                 ),
               ),
@@ -98,9 +114,21 @@ class WeatherScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  AdditionalInformation(),
-                  AdditionalInformation(),
-                  AdditionalInformation(),
+                  AdditionalInformation(
+                    icon: Icons.water_drop,
+                    label: 'Humidity',
+                    value: '94',
+                  ),
+                  AdditionalInformation(
+                    icon: Icons.air,
+                    label: 'Wind Speed',
+                    value: '7.67',
+                  ),
+                  AdditionalInformation(
+                    icon: Icons.beach_access,
+                    label: 'Pressure',
+                    value: '1006',
+                  ),
                 ],
               )
                 ],
