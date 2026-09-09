@@ -5,6 +5,7 @@ import 'package:weather_flutter/Secrets.dart';
 import 'Additional_Information.dart';
 import 'Hourly_Forecast_Section.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -14,6 +15,7 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
+  late Future<Map<String,dynamic>> weather;
 
   Future<Map<String,dynamic>> getCurrentWeather() async {
     try {
@@ -39,6 +41,11 @@ class _WeatherScreenState extends State<WeatherScreen> {
     }
   }
   @override
+  void initState() {
+    super.initState();
+    weather = getCurrentWeather();
+  }
+  @override
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
@@ -47,12 +54,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
         ),
         centerTitle:true,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.refresh),
+          IconButton(onPressed: (
+              ){
+            setState(() {
+              weather = getCurrentWeather();
+            });
+          }, icon: Icon(Icons.refresh),
           )
         ],
       ),
         body : FutureBuilder(
-          future: getCurrentWeather(),
+          future: weather,
           builder:(context,snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting){
               return Center(child: CircularProgressIndicator.adaptive());
@@ -142,8 +154,10 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     scrollDirection: Axis.horizontal,
                       itemCount: 5,
                       itemBuilder: (context, index){
+                      final hourlyForecast = data['list'][index+1];
+                      final time = DateTime.parse(hourlyForecast['dt_txt']);
                         return HourlyForecastSection(
-                                  time: data['list'][index+1]['dt'].toString(),
+                                  time: DateFormat.j().format(time),
                                   icon: data['list'][index+1]['weather'][0]['main'] == 'Clouds'|| data['list'][index+1]['weather'][0]['main'] == 'Rain'? Icons.cloud: Icons.sunny,
                                   temp: data['list'][index+1]['main']['temp'].toString(),
                         );
