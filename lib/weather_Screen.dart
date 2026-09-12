@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:weather_flutter/Secrets.dart';
 import 'Additional_Information.dart';
 import 'Hourly_Forecast_Section.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+
+import 'Secrets.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -23,7 +24,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       String cityName = 'London';
       final res = await http.get(
         Uri.parse(
-            'http://api.openweathermap.org/data/2.5/forecast?q=$cityName&APPID=$openWeatherAPIKey&units=metric'
+            'https://api.openweathermap.org/data/2.5/forecast?q=$cityName&APPID=$openWeatherAPIKey&units=metric'
         ),
       );
       final data = jsonDecode(res.body);
@@ -59,7 +60,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
             setState(() {
               weather = getCurrentWeather();
             });
-          }, icon: Icon(Icons.refresh),
+          }, icon: const Icon(Icons.refresh),
           )
         ],
       ),
@@ -67,7 +68,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
           future: weather,
           builder:(context,snapshot) {
             if(snapshot.connectionState == ConnectionState.waiting){
-              return Center(child: CircularProgressIndicator.adaptive());
+              return const Center(child: CircularProgressIndicator.adaptive());
             }
             if(snapshot.hasError){
               return Center(child: Text(snapshot.error.toString()));
@@ -126,7 +127,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 const SizedBox(height: 20),
                 //weather forecast card
                 Align(
-                  alignment: AlignmentGeometry.centerLeft,
+                  alignment: Alignment.centerLeft,
                   child: Text('Weather Forecast',
                       style: TextStyle(
                         fontSize: 24,
@@ -158,8 +159,8 @@ class _WeatherScreenState extends State<WeatherScreen> {
                       final time = DateTime.parse(hourlyForecast['dt_txt']);
                         return HourlyForecastSection(
                                   time: DateFormat.j().format(time),
-                                  icon: data['list'][index+1]['weather'][0]['main'] == 'Clouds'|| data['list'][index+1]['weather'][0]['main'] == 'Rain'? Icons.cloud: Icons.sunny,
-                                  temp: data['list'][index+1]['main']['temp'].toString(),
+                                  icon: hourlyForecast['weather'][0]['main'] == 'Clouds' || hourlyForecast['weather'][0]['main'] == 'Rain' ? Icons.cloud : Icons.sunny,
+                                  temp: hourlyForecast['main']['temp'].toString(),
                         );
                       },
 
@@ -168,7 +169,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 //Additional Information
                 const SizedBox(height: 20),
                 Align(
-                  alignment: AlignmentGeometry.centerLeft,
+                  alignment: Alignment.centerLeft,
                   child: Text('Additional Information',
                     style: TextStyle(
                       fontSize: 24,

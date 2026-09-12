@@ -16,7 +16,7 @@ class HourlyForecastSection extends StatelessWidget {
       width: 100,
       child: Card(
           elevation: 10,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
